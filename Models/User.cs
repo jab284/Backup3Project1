@@ -1,3 +1,5 @@
+using Azure.Identity;
+
 class User
 {
     //Properties
@@ -6,16 +8,13 @@ class User
     public string UserName { get; set;}  
     public string Password { get; set;}
     
-
-   //Constructor
+   //Constructors
    public User()
    {
         Name = "";
         UserName = "";
         Password = "";
    }
-
-    //Constructor
     public User(string firstName, string userName, string password)
     {
         Name = firstName;
@@ -32,5 +31,5 @@ class User
         str += "It is time to start creating your list.";
         
         return str;
-    }    
+    }
 }

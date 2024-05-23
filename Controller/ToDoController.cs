@@ -1,38 +1,20 @@
-using Azure.Identity;
-
-class User
+class ToDoController  
 {
-    //Properties
-    public int Id { get; set;}
-    public string Name { get; set;}
-    public string UserName { get; set;}  
-    public string Password { get; set;}
-    
+    private TodoService _todoService;
 
-    //Constructor
-    public User()
+    public ToDoController(TodoService todoService)
     {
-        Name = "";
-        UserName = "";
-        Password = "";
-    }
-    
-    //Constructor
-    public User(string firstName, string userName, string password)
-    {
-        Name = firstName;
-        UserName = userName;
-        Password = password;
+        this._todoService = todoService;
     }
 
-    //ToString
-    public override string ToString()
+    public Todo AddTodo(string description, User user)
     {
-        string str = "";
-        str += "Thank You " + Name;
-        str += ".";
-        str += "It is time to start creating your list.";
-        
-        return str;
+        Todo todo = _todoService.AddTodo(description, user);
+        return todo;
+    }
+
+    public List<Todo> GetAllTodos(User user)
+    {
+        return _todoService.GetAllTodos(user);
     }
 }

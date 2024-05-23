@@ -1,17 +1,17 @@
-﻿using System;
-
-class Program
+﻿class Program
 {
+
     // Application setup
         static UserService userService;
         static TodoService todoService;     
         static UserController userController; 
-        static ToDoController todoController; 
+        static ToDoController todoController;  
 
-        //Main Method----------
+
+    //MAIN METHOD --------------------------------------------
     static void Main(string[] args)
     {
-       userController = new(userService);
+        userController = new(userService);
 
            
         //string with path to database
@@ -28,7 +28,6 @@ class Program
         todoService = new(todoRepo);
         todoController = new(todoService);
 
-
         //Console
         System.Console.WriteLine();
         System.Console.WriteLine("       Welcome to: ");
@@ -40,7 +39,7 @@ class Program
         System.Console.WriteLine("Here, you can easily maintain and track your list of need to do chores!");
         System.Console.WriteLine();
         System.Console.WriteLine("--------------------------");
-
+        
 
         User? user = null;  
 
@@ -97,7 +96,14 @@ class Program
             Console.WriteLine("--------------------------------");
         }
 
-
+        //if (exitRequested) 5/23
+        //{5/23
+        //    return; 5/23
+        //} 5/23
+        
+        //Display ToDo Task Main menu
+        //exitRequested = false;  5/23
+        //while (!exitRequested) 5/23
         while (!logoutRequested) 
         {
             int selection = DisplayMainMenuAndGetSelection();
@@ -126,13 +132,7 @@ class Program
         }
     }
 } 
-
-
-
-
-
-
-
+    
     //METHODS
     static string GetAndValidateUserInput(string inputName, int? minLength, int? maxLength)
     {
@@ -152,10 +152,10 @@ class Program
             else
             {
                 System.Console.WriteLine(
-                    $"Please enter your {inputName}:");  
+                    $"Please enter your {inputName}:");  //this changed
             }
             
-            string? input = Console.ReadLine(); //read input from user
+            string? input = Console.ReadLine(); //reads input from user
             try 
             {
                 if (validateLength)
@@ -167,7 +167,7 @@ class Program
                     }
                 }
 
-                for (int i = 0; i < input.Length; i++)
+                for (int i = 0; i < input!.Length; i++)
                 {
                     if (!char.IsLetter(input[i])) //invalid character exception
                     {
@@ -176,7 +176,7 @@ class Program
                 }
 
                 // return to break out of while loop
-                return input; //user input
+                return input; //users input
             }
             catch (IndexOutOfRangeException)
             {
@@ -196,7 +196,7 @@ class Program
         }
     }
     
-
+        
     // Method to Display Entry Main Menu
     static int DisplayEntryMainMenu()
     {
@@ -213,7 +213,7 @@ class Program
             System.Console.WriteLine();
             System.Console.WriteLine("Please select an option:");
 
-            string? input = Console.ReadLine().TrimEnd()?? ""; //returns user input for selection
+            string? input = Console.ReadLine().TrimEnd()?? ""; //returns users input for selection
             System.Console.WriteLine(); 
             System.Console.WriteLine("------------------------");
             System.Console.WriteLine();
@@ -236,8 +236,8 @@ class Program
             System.Console.WriteLine("-----------------------------------------------------");
             System.Console.WriteLine();
         }
+       
     }
-
 
     //Method to Display main menu and make selection
     static int DisplayMainMenuAndGetSelection()
@@ -254,7 +254,7 @@ class Program
             System.Console.WriteLine();
             System.Console.WriteLine("Please select an option:");
 
-            string? input = Console.ReadLine().TrimEnd()?? ""; //returns user input for selection
+            string? input = Console.ReadLine().TrimEnd()?? ""; //returns users input for selection
             System.Console.WriteLine();
             try
             {
@@ -321,13 +321,13 @@ class Program
         string userName = GetAndValidateUserInput("Username", 7, 10);
         System.Console.WriteLine();
         //Method to get Password
-        string password = GetAndValidateUserInput("Password", 5, 10); 
+        string
+            password = GetAndValidateUserInput("Password", 5, 10); 
         System.Console.WriteLine();
         //Method to create RegisterUser with first name, user name, and password - pulls from above
         User user = userController.RegisterUser(firstName, userName, password);  
         return user;
     }
-
 
     // Method to Display Login Menu
     static User DisplayLoginMenu(UserController userController)  
@@ -344,13 +344,5 @@ class Program
         
         return user;
     }
+
 }
-
-
-
-
-
-
-
-    
-
