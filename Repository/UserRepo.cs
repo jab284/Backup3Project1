@@ -2,35 +2,27 @@ using Microsoft.Data.SqlClient;
 
 class UserRepo
 {
-    //private TodoListStorage _todoListStorage;  //commented out 5/21
+    private readonly string _connectionString; 
 
-    private readonly string _connectionString; // added 5/21
 
-    // added method 5/21 - Dependency Injection / Constructor Injection - happening in constructor
+    // Dependency/Constructor Injection / Happening in constructor
     public UserRepo(string connString)
     {
         _connectionString = connString;
     }
 
-    /*  -- commented 5/21 - does this get removed
-    public UserRepo(TodoListStorage todoListStorage)
-    {
-        this._todoListStorage = todoListStorage;
-    }
-    */
-
+   
     //Add User
     public User? AddUser(User user)
     {
-        
-        using SqlConnection connection = new(_connectionString);  //added 5/21
-        connection.Open();   //added 5/21
+        using SqlConnection connection = new(_connectionString);  
+        connection.Open();   
 
-        string sql = "INSERT INTO [User] VALUES (@Name, @UserName, @Password)";  //added 5/21
-        using SqlCommand cmd = new(sql, connection);  //added 5/21
-        cmd.Parameters.AddWithValue("@Name", user.Name);  //added 5/21
-        cmd.Parameters.AddWithValue("@UserName", user.UserName);  //added 5/21
-        cmd.Parameters.AddWithValue("@Password", user.Password);  //added 5/21
+        string sql = "INSERT INTO [User] VALUES (@Name, @UserName, @Password)";  
+        using SqlCommand cmd = new(sql, connection);  
+        cmd.Parameters.AddWithValue("@Name", user.Name);  
+        cmd.Parameters.AddWithValue("@UserName", user.UserName);  
+        cmd.Parameters.AddWithValue("@Password", user.Password);  
 
         //Execute the Query
         // cmd.ExecuteNonQuery(); //This executes a non-select SQL statement (inserts, updates, deletes)
@@ -39,33 +31,21 @@ class UserRepo
         //Extract the Results
         if (reader.Read())
         {
-            //If Read() found data -> then extract it.
-            User newUser = BuildUser(reader); //Helper Method for doing that repetitive task
+            //If Read() found data -> then extract it / Helper Method for repetitive task
+            User newUser = BuildUser(reader); 
             return newUser;
         }
         else
         {
-            //Else Read() found nothing -> Insert Failed. :(
+            //Read() found nothing 
             return null;
         }
-
-
-       
-        /*  commented 5/21
-        user.Id = _todoListStorage.userIdCounter;
-        _todoListStorage.userIdCounter++;
-        
-        //Add to user table
-        _todoListStorage.UserTable.Add(user.Id, user);
-        
-        return user;
-        */
     }
 
-    //Get user by Username
+
+    //Get User by Username
     public User? GetUserByUsername(string username)
     {
-        
         try
         {
             //Set up DB Connection
@@ -89,9 +69,8 @@ class UserRepo
                 User newUser = BuildUser(reader);
                 return newUser;
             }
-
-            return null; //Didnt find anyone :(
-
+            //Read() found nothing
+            return null; 
         }
         catch (Exception e)
         {
@@ -99,28 +78,10 @@ class UserRepo
             System.Console.WriteLine(e.StackTrace);
             return null;
         }
-
-
-
-
-
-
-
-
-
-        /*  commented 5/21
-        //Get user from user table by username
-        foreach (User user in _todoListStorage.UserTable.Values)
-        {
-            if (user.UserName == username)
-            {
-                return user;
-            }
-        }
-        throw new ArgumentException("User not found");
-        */
     }
 
+
+    //Build User
     private User BuildUser(SqlDataReader reader)
     {
         User newUser = new();
@@ -128,9 +89,7 @@ class UserRepo
         newUser.Name = (string)reader["Name"];
         newUser.UserName = (string)reader["userName"];
         newUser.Password = (string)reader["Password"];
-       
-
-
+    
         return newUser;
     }
 }

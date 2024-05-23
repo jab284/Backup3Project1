@@ -5,12 +5,14 @@ class Todo
     public int UserId { get; set; }
     public string Description { get; set; } = "";
     
-     
+    
+    //Constructor
     public Todo ()
     {
         
     }
 
+    //Constructor
       public Todo(int id, int userId, string description)
     {
         this.Id = id;
@@ -18,10 +20,9 @@ class Todo
         this.Description = description.ToUpper();  
     }
      
-     //Constructor
+    //Constructor
     public Todo(string description, int userId)
     {
-       
         this.UserId = userId;
         this.Description = description.ToUpper();  
     }

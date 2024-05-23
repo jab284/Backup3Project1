@@ -8,7 +8,7 @@
         static ToDoController todoController;  
 
 
-    //MAIN METHOD --------------------------------------------
+    //MAIN METHOD ---------------
     static void Main(string[] args)
     {
         userController = new(userService);
@@ -50,7 +50,6 @@
             bool loggedIn = false;
             bool logoutRequested = false;  
 
-            //Display Entry Menu
         while (!(exitRequested || loggedIn))
         {
             int selection = DisplayEntryMainMenu();
@@ -96,14 +95,6 @@
             Console.WriteLine("--------------------------------");
         }
 
-        //if (exitRequested) 5/23
-        //{5/23
-        //    return; 5/23
-        //} 5/23
-        
-        //Display ToDo Task Main menu
-        //exitRequested = false;  5/23
-        //while (!exitRequested) 5/23
         while (!logoutRequested) 
         {
             int selection = DisplayMainMenuAndGetSelection();
@@ -133,10 +124,11 @@
     }
 } 
     
+
+
     //METHODS
     static string GetAndValidateUserInput(string inputName, int? minLength, int? maxLength)
     {
-        
         bool validateLength = minLength.HasValue && maxLength.HasValue;
         
         //While Loop
@@ -145,44 +137,38 @@
             //format strings for registering inputName
             if (validateLength)
             {
-                System.Console.WriteLine(
-                    $"Please enter your {inputName}. It must be between {minLength} and {maxLength} alpha characters long.");
-                    
+                System.Console.WriteLine($"Please enter your {inputName}. It must be between {minLength} and {maxLength} alpha characters long.");
             }
             else
             {
-                System.Console.WriteLine(
-                    $"Please enter your {inputName}:");  //this changed
+                System.Console.WriteLine($"Please enter your {inputName}:");  
             }
             
-            string? input = Console.ReadLine(); //reads input from user
+            string? input = Console.ReadLine(); //read user input
             try 
             {
                 if (validateLength)
                 {
-                    if (input.Length > maxLength || input.Length < minLength)     //Exceptions --  for wrong length
+                    if (input!.Length > maxLength || input.Length < minLength)     //Exception - wrong length
                     {
-                        throw new IndexOutOfRangeException(
-                            $"Input must be between {minLength} and {maxLength} alpha characters long.");
+                        throw new IndexOutOfRangeException($"Input must be between {minLength} and {maxLength} alpha characters long.");
                     }
                 }
 
                 for (int i = 0; i < input!.Length; i++)
                 {
-                    if (!char.IsLetter(input[i])) //invalid character exception
+                    if (!char.IsLetter(input[i])) //Exception - invalid character 
                     {
                         throw new FormatException("Input must only be alpha characters.");
                     }
                 }
-
                 // return to break out of while loop
                 return input; //users input
             }
             catch (IndexOutOfRangeException)
             {
                 System.Console.WriteLine();
-                System.Console.WriteLine(
-                    $"Your {inputName} must be between {minLength} and {maxLength} alpha characters long.");
+                System.Console.WriteLine($"Your {inputName} must be between {minLength} and {maxLength} alpha characters long.");
                 System.Console.WriteLine("Please try again.");
                 System.Console.WriteLine();
             }
@@ -197,7 +183,7 @@
     }
     
         
-    // Method to Display Entry Main Menu
+    // Method Display Entry Main Menu
     static int DisplayEntryMainMenu()
     {
         while (true)
@@ -213,7 +199,7 @@
             System.Console.WriteLine();
             System.Console.WriteLine("Please select an option:");
 
-            string? input = Console.ReadLine().TrimEnd()?? ""; //returns users input for selection
+            string input = Console.ReadLine().TrimEnd()?? ""; //returns users input for selection
             System.Console.WriteLine(); 
             System.Console.WriteLine("------------------------");
             System.Console.WriteLine();
@@ -224,7 +210,6 @@
                 {
                     throw new IndexOutOfRangeException("Selection must be between 1 and 3.");
                 }
-
                 return selection;
             }
             catch (Exception)
@@ -236,10 +221,10 @@
             System.Console.WriteLine("-----------------------------------------------------");
             System.Console.WriteLine();
         }
-       
     }
 
-    //Method to Display main menu and make selection
+
+    //Method Display Main Menu/Make Selection
     static int DisplayMainMenuAndGetSelection()
     {
         while (true)
@@ -254,7 +239,7 @@
             System.Console.WriteLine();
             System.Console.WriteLine("Please select an option:");
 
-            string? input = Console.ReadLine().TrimEnd()?? ""; //returns users input for selection
+            string? input = Console.ReadLine().TrimEnd()?? ""; //returns users input of selection
             System.Console.WriteLine();
             try
             {
@@ -263,7 +248,6 @@
                 {
                     throw new IndexOutOfRangeException("Selection must be between 1 and 3.");
                 }
-
                 return selection;
             }
             catch (Exception)
@@ -274,6 +258,7 @@
             }
         }
     }
+
 
     //Method Display Add Todo Menu
     static void DisplayAddTodoMenu(TodoService todoService, User activeUser)
@@ -287,6 +272,7 @@
         System.Console.WriteLine($"ToDo Task '{input.ToUpper()}' was added to your list.");
         System.Console.WriteLine();
     }
+
 
     //Method Display All Todo's
     static void DisplayAllTodosMenu(ToDoController todoController, User activeUser)
@@ -304,15 +290,16 @@
         System.Console.WriteLine();
     }
 
-    // Method to Display Register User Menu
+
+    // Method Display Register User Menu
     static User DisplayRegisterUserMenu()   
     {
         System.Console.WriteLine("REGISTER:");
         System.Console.WriteLine();
-        //Method to get First Name
         System.Console.WriteLine("Before creating your list you must first register with us.");
         System.Console.WriteLine("AFTER registering with us, you will also need to Login.");
         System.Console.WriteLine();
+        //Method to get First Name
         string firstName = GetAndValidateUserInput("First Name", null, null); 
         System.Console.WriteLine();
         System.Console.WriteLine($"Welcome {firstName.ToUpper()}!");
@@ -321,13 +308,13 @@
         string userName = GetAndValidateUserInput("Username", 7, 10);
         System.Console.WriteLine();
         //Method to get Password
-        string
-            password = GetAndValidateUserInput("Password", 5, 10); 
+        string password = GetAndValidateUserInput("Password", 5, 10); 
         System.Console.WriteLine();
         //Method to create RegisterUser with first name, user name, and password - pulls from above
         User user = userController.RegisterUser(firstName, userName, password);  
         return user;
     }
+
 
     // Method to Display Login Menu
     static User DisplayLoginMenu(UserController userController)  

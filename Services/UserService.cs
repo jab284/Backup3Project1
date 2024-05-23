@@ -2,12 +2,13 @@ class UserService
 {
     UserRepo userRepo;
     
+
     public UserService(UserRepo userRepo)
     {
         this.userRepo = userRepo;
     }
 
-    //Register the user
+    //Register User
     public User? RegisterUser(string firstName, string userName, string password)
     {
         User user = new User(firstName, userName, password);
@@ -15,12 +16,12 @@ class UserService
         return user;
     }
     
-    //Login the user
+    //Login User
     public User Login(string userName, string inputPassword)
     {
         User user = userRepo.GetUserByUsername(userName);
 
-        if (inputPassword == user.Password)
+        if (inputPassword == user!.Password)
         {
             return user;
         }
