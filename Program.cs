@@ -199,7 +199,7 @@
             System.Console.WriteLine();
             System.Console.WriteLine("Please select an option:");
 
-            string input = Console.ReadLine().TrimEnd()?? ""; //returns users input for selection
+            string input = Console.ReadLine()?.TrimEnd()?? ""; //returns users input for selection
             System.Console.WriteLine(); 
             System.Console.WriteLine("------------------------");
             System.Console.WriteLine();
@@ -239,7 +239,7 @@
             System.Console.WriteLine();
             System.Console.WriteLine("Please select an option:");
 
-            string? input = Console.ReadLine().TrimEnd()?? ""; //returns users input of selection
+            string? input = Console.ReadLine()?.TrimEnd()?? ""; //returns users input of selection
             System.Console.WriteLine();
             try
             {
@@ -264,7 +264,7 @@
     static void DisplayAddTodoMenu(TodoService todoService, User activeUser)
     {
         System.Console.WriteLine("What task would you like add?");
-        string? input = Console.ReadLine().TrimEnd()?? "";
+        string? input = Console.ReadLine()?.TrimEnd()?? "";
         System.Console.WriteLine();
 
         Todo todo = todoService.AddTodo(input, activeUser);
